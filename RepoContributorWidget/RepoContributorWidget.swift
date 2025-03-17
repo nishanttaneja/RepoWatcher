@@ -8,24 +8,24 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+struct RepoContributorProvider: TimelineProvider {
+    func placeholder(in context: Context) -> RepoContributorEntry {
+        RepoContributorEntry(date: Date(), emoji: "😀")
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (RepoContributorEntry) -> ()) {
+        let entry = RepoContributorEntry(date: Date(), emoji: "😀")
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+        var entries: [RepoContributorEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = RepoContributorEntry(date: entryDate, emoji: "😀")
             entries.append(entry)
         }
 
@@ -38,13 +38,13 @@ struct Provider: TimelineProvider {
 //    }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct RepoContributorEntry: TimelineEntry {
     let date: Date
     let emoji: String
 }
 
 struct RepoContributorWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: RepoContributorProvider.Entry
 
     var body: some View {
         VStack {
@@ -61,7 +61,7 @@ struct RepoContributorWidget: Widget {
     let kind: String = "RepoContributorWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: RepoContributorProvider()) { entry in
             if #available(iOS 17.0, *) {
                 RepoContributorWidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
@@ -79,6 +79,6 @@ struct RepoContributorWidget: Widget {
 #Preview(as: .systemSmall) {
     RepoContributorWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    RepoContributorEntry(date: .now, emoji: "😀")
+    RepoContributorEntry(date: .now, emoji: "🤩")
 }
