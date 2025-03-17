@@ -14,13 +14,11 @@ fileprivate struct RepoContributorEntry: TimelineEntry {
 }
 
 fileprivate extension RepoContributorEntry {
-    static let mockData = RepoContributorEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
+    static let mockData = RepoContributorEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
         RepoDetails.Contributor(userImagePath: "", username: "C-1", contributions: 6),
         RepoDetails.Contributor(userImagePath: "", username: "C-2", contributions: 5),
         RepoDetails.Contributor(userImagePath: "", username: "C-3", contributions: 4),
-        RepoDetails.Contributor(userImagePath: "", username: "C-4", contributions: 3),
-        RepoDetails.Contributor(userImagePath: "", username: "C-5", contributions: 2),
-        RepoDetails.Contributor(userImagePath: "", username: "C-6", contributions: 1),
+        RepoDetails.Contributor(userImagePath: "", username: "C-4", contributions: 3)
     ]))
 }
 
@@ -49,9 +47,32 @@ fileprivate struct RepoContributorsView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             RepoDetailsView(details)        // Repo Details
-            Text(details.title)         // Contributors List View
+            Spacer().frame(height: 16)
+            Text("Top Contributors")         // Contributors List View
+                .font(.subheadline)
+                .fontWeight(.bold)
+                .foregroundStyle(.secondary)
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 16) {
+                ForEach(details.contributors) { contributor in
+                    HStack {
+                        HStack {        // Image and title
+                            Circle()
+                                .frame(width: 36, height: 36)
+                            VStack(alignment: .leading) {
+                                Text(contributor.username)
+                                    .font(.callout)
+                                    .minimumScaleFactor(0.7)
+                                Text("\(contributor.contributions)")
+                                    .font(.caption)
+                                    .fontWeight(.light)
+                                    .minimumScaleFactor(0.7)
+                            }
+                        }
+                    }
+                }
+            }
         }
         .containerBackground(for: .widget) { }
     }

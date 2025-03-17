@@ -14,7 +14,7 @@ fileprivate struct RepoDetailsEntry: TimelineEntry {
 }
 
 fileprivate extension RepoDetailsEntry {
-    static let mockData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: []))
+    static let mockData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: []))
 }
 
 fileprivate struct RepoDetailsProvider: TimelineProvider {
@@ -42,8 +42,60 @@ struct RepoDetailsView: View {
     }
     
     var body: some View {
-        VStack {
-            Text(details.title)
+        HStack {        // Main content view
+            VStack(alignment: .leading) {        // Left view: content excluding days since last activity
+                HStack {        // Image and title
+                    Circle()
+                        .frame(width: 48, height: 48)
+                    Text(details.title)
+                        .font(.title)
+                        .minimumScaleFactor(0.7)
+                        
+                }
+                Spacer().frame(height: 8)
+                Text(details.description)
+                    .font(.caption)
+                    .fontWeight(.light)
+                    .lineLimit(4)
+                Spacer().frame(height: 8)
+                HStack(spacing: 16) {        // Repo details: forks, watchers, issues
+                    Label {
+                        Text("\(details.watchers)")
+                            .font(.caption)
+                    } icon: {
+                        Image(systemName: "star.fill")
+                            .foregroundStyle(.green)
+                    }
+                    Label {
+                        Text("\(details.forks)")
+                            .font(.caption)
+                    } icon: {
+                        Image(systemName: "tuningfork")
+                            .foregroundStyle(.green)
+                    }
+                    if details.issues > .zero {
+                        Label {
+                            Text("\(details.issues)")
+                                .font(.caption)
+                        } icon: {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(.green)
+                        }
+                    }
+                }
+            }
+            Spacer()
+            VStack {        // Days since last activity
+                Text("\(details.daysSinceLastActivity)")
+                    .font(.system(size: 72, weight: .heavy))
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                    .foregroundStyle(.green)
+                Text("days ago")
+                    .font(.caption2)
+                    .fontWeight(.light)
+                    .foregroundStyle(.secondary)
+            }
         }
         .containerBackground(for: .widget) { }
     }

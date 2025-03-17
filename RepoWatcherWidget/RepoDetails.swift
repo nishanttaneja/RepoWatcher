@@ -13,6 +13,7 @@ typealias RepoContributorsDecodable = RepoDetails.Contributor.ContributorDecodab
 struct RepoDetails {
     let ownerImagePath: String
     let title: String
+    let description: String
     let daysSinceLastActivity: Int
     let watchers: Int
     let forks: Int
@@ -21,7 +22,8 @@ struct RepoDetails {
 }
 
 extension RepoDetails {
-    struct Contributor {
+    struct Contributor: Identifiable {
+        let id = UUID()
         let userImagePath: String
         let username: String
         let contributions: Int
@@ -64,7 +66,7 @@ extension RepoDetails.Contributor.ContributorDecodableData {
 extension RepoDetails.DetailsDecodableData {
     var details: RepoDetails? {
         guard let name, let avatarUrl = owner?.avatarUrl, let forks, let watchers, let openIssues, let daysSinceLastActivity = pushedAt?.numberOfDaysTillToday else { return nil }
-        return RepoDetails(ownerImagePath: avatarUrl, title: name, daysSinceLastActivity: daysSinceLastActivity, watchers: watchers, forks: forks, issues: openIssues, contributors: [])
+        return RepoDetails(ownerImagePath: avatarUrl, title: name, description: "No Description. This is a hardcoded text.", daysSinceLastActivity: daysSinceLastActivity, watchers: watchers, forks: forks, issues: openIssues, contributors: [])
     }
 }
 
