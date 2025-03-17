@@ -10,10 +10,11 @@ import WidgetKit
 
 fileprivate struct RepoDetailsEntry: TimelineEntry {
     let date: Date
+    let details: RepoDetails
 }
 
 fileprivate extension RepoDetailsEntry {
-    static let mockData = RepoDetailsEntry(date: .now)
+    static let mockData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: []))
 }
 
 fileprivate struct RepoDetailsProvider: TimelineProvider {
