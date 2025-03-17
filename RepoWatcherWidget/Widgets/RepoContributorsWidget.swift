@@ -42,15 +42,15 @@ fileprivate struct RepoContributorsProvider: TimelineProvider {
 }
 
 fileprivate struct RepoContributorsView: View {
-    private let entry: RepoContributorEntry
+    private let details: RepoDetails
     
-    init(_ entry: RepoContributorEntry) {
-        self.entry = entry
+    init(_ details: RepoDetails) {
+        self.details = details
     }
     
     var body: some View {
         VStack {
-            Text("\(entry.date.formatted())")
+            Text(details.title)
         }
         .containerBackground(for: .widget) { }
     }
@@ -61,7 +61,7 @@ struct RepoContributorsWidget: Widget {
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RepoContributorsProvider()) { entry in
-            RepoContributorsView(entry)
+            RepoContributorsView(entry.details)
         }
         .configurationDisplayName("Contributors")
         .description("Keep track of a repository's top contributors.")

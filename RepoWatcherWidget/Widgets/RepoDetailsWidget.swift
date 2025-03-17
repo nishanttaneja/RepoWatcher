@@ -35,15 +35,15 @@ fileprivate struct RepoDetailsProvider: TimelineProvider {
 }
 
 fileprivate struct RepoDetailsView: View {
-    private let entry: RepoDetailsEntry
+    private let details: RepoDetails
     
-    init(_ entry: RepoDetailsEntry) {
-        self.entry = entry
+    init(_ details: RepoDetails) {
+        self.details = details
     }
     
     var body: some View {
         VStack {
-            Text("\(entry.date.formatted(date: .long, time: .complete))")
+            Text(details.title)
         }
         .containerBackground(for: .widget) { }
     }
@@ -54,7 +54,7 @@ struct RepoDetailsWidget: Widget {
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RepoDetailsProvider()) { entry in
-            RepoDetailsView(entry)
+            RepoDetailsView(entry.details)
         }
         .configurationDisplayName("Repo Watcher")
         .description("Keep an eye on a GitHub repository.")
