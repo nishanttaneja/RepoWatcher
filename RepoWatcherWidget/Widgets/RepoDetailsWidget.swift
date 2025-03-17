@@ -56,6 +56,9 @@ struct RepoDetailsWidget: Widget {
         StaticConfiguration(kind: kind, provider: RepoDetailsProvider()) { entry in
             RepoDetailsView(entry)
         }
+        .configurationDisplayName("Repo Watcher")
+        .description("Keep an eye on a GitHub repository.")
+        .supportedFamilies([.systemMedium])
     }
 }
 

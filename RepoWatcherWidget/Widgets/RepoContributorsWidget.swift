@@ -63,6 +63,9 @@ struct RepoContributorsWidget: Widget {
         StaticConfiguration(kind: kind, provider: RepoContributorsProvider()) { entry in
             RepoContributorsView(entry)
         }
+        .configurationDisplayName("Contributors")
+        .description("Keep track of a repository's top contributors.")
+        .supportedFamilies([.systemLarge])
     }
 }
 
