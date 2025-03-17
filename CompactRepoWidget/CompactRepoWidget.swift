@@ -1,6 +1,6 @@
 //
-//  RepoWidget.swift
-//  RepoWidget
+//  CompactRepoWidget.swift
+//  CompactRepoWidget
 //
 //  Created by Nishant Taneja on 17/03/25.
 //
@@ -43,7 +43,7 @@ struct SimpleEntry: TimelineEntry {
     let emoji: String
 }
 
-struct RepoWidgetEntryView : View {
+struct CompactRepoWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
@@ -57,16 +57,16 @@ struct RepoWidgetEntryView : View {
     }
 }
 
-struct RepoWidget: Widget {
-    let kind: String = "RepoWidget"
+struct CompactRepoWidget: Widget {
+    let kind: String = "CompactRepoWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
-                RepoWidgetEntryView(entry: entry)
+                CompactRepoWidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                RepoWidgetEntryView(entry: entry)
+                CompactRepoWidgetEntryView(entry: entry)
                     .padding()
                     .background()
             }
@@ -77,7 +77,7 @@ struct RepoWidget: Widget {
 }
 
 #Preview(as: .systemSmall) {
-    RepoWidget()
+    CompactRepoWidget()
 } timeline: {
     SimpleEntry(date: .now, emoji: "😀")
     SimpleEntry(date: .now, emoji: "🤩")

@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B454EFCE2D889B2F0053A648 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B454EFCD2D889B2F0053A648 /* WidgetKit.framework */; };
-		B454EFD02D889B2F0053A648 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B454EFCF2D889B2F0053A648 /* SwiftUI.framework */; };
-		B454EFDB2D889B310053A648 /* RepoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B454EFCB2D889B2F0053A648 /* RepoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B454EFF82D889C9A0053A648 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B454EFCD2D889B2F0053A648 /* WidgetKit.framework */; };
+		B454EFF92D889C9A0053A648 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B454EFCF2D889B2F0053A648 /* SwiftUI.framework */; };
+		B454F0042D889C9B0053A648 /* CompactRepoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B454EFF72D889C9A0053A648 /* CompactRepoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B454EFD92D889B310053A648 /* PBXContainerItemProxy */ = {
+		B454F0022D889C9B0053A648 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B454EF6D2D8897AF0053A648 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B454EFCA2D889B2F0053A648;
-			remoteInfo = RepoWidgetExtension;
+			remoteGlobalIDString = B454EFF62D889C9A0053A648;
+			remoteInfo = CompactRepoWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -29,7 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B454EFDB2D889B310053A648 /* RepoWidgetExtension.appex in Embed Foundation Extensions */,
+				B454F0042D889C9B0053A648 /* CompactRepoWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,18 +38,18 @@
 
 /* Begin PBXFileReference section */
 		B454EF752D8897AF0053A648 /* RepoWatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoWatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B454EFCB2D889B2F0053A648 /* RepoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RepoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B454EFCD2D889B2F0053A648 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B454EFCF2D889B2F0053A648 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B454EFF72D889C9A0053A648 /* CompactRepoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CompactRepoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B454EFDF2D889B310053A648 /* Exceptions for "RepoWidget" folder in "RepoWidgetExtension" target */ = {
+		B454F0052D889C9B0053A648 /* Exceptions for "CompactRepoWidget" folder in "CompactRepoWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = B454EFCA2D889B2F0053A648 /* RepoWidgetExtension */;
+			target = B454EFF62D889C9A0053A648 /* CompactRepoWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -59,12 +59,12 @@
 			path = RepoWatcher;
 			sourceTree = "<group>";
 		};
-		B454EFD12D889B2F0053A648 /* RepoWidget */ = {
+		B454EFFA2D889C9A0053A648 /* CompactRepoWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B454EFDF2D889B310053A648 /* Exceptions for "RepoWidget" folder in "RepoWidgetExtension" target */,
+				B454F0052D889C9B0053A648 /* Exceptions for "CompactRepoWidget" folder in "CompactRepoWidgetExtension" target */,
 			);
-			path = RepoWidget;
+			path = CompactRepoWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -77,12 +77,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B454EFC82D889B2F0053A648 /* Frameworks */ = {
+		B454EFF42D889C9A0053A648 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B454EFD02D889B2F0053A648 /* SwiftUI.framework in Frameworks */,
-				B454EFCE2D889B2F0053A648 /* WidgetKit.framework in Frameworks */,
+				B454EFF92D889C9A0053A648 /* SwiftUI.framework in Frameworks */,
+				B454EFF82D889C9A0053A648 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				B454EF772D8897AF0053A648 /* RepoWatcher */,
-				B454EFD12D889B2F0053A648 /* RepoWidget */,
+				B454EFFA2D889C9A0053A648 /* CompactRepoWidget */,
 				B454EFCC2D889B2F0053A648 /* Frameworks */,
 				B454EF762D8897AF0053A648 /* Products */,
 			);
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				B454EF752D8897AF0053A648 /* RepoWatcher.app */,
-				B454EFCB2D889B2F0053A648 /* RepoWidgetExtension.appex */,
+				B454EFF72D889C9A0053A648 /* CompactRepoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,7 +132,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				B454EFDA2D889B310053A648 /* PBXTargetDependency */,
+				B454F0032D889C9B0053A648 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B454EF772D8897AF0053A648 /* RepoWatcher */,
@@ -144,26 +144,26 @@
 			productReference = B454EF752D8897AF0053A648 /* RepoWatcher.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B454EFCA2D889B2F0053A648 /* RepoWidgetExtension */ = {
+		B454EFF62D889C9A0053A648 /* CompactRepoWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B454EFE02D889B310053A648 /* Build configuration list for PBXNativeTarget "RepoWidgetExtension" */;
+			buildConfigurationList = B454F0062D889C9B0053A648 /* Build configuration list for PBXNativeTarget "CompactRepoWidgetExtension" */;
 			buildPhases = (
-				B454EFC72D889B2F0053A648 /* Sources */,
-				B454EFC82D889B2F0053A648 /* Frameworks */,
-				B454EFC92D889B2F0053A648 /* Resources */,
+				B454EFF32D889C9A0053A648 /* Sources */,
+				B454EFF42D889C9A0053A648 /* Frameworks */,
+				B454EFF52D889C9A0053A648 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				B454EFD12D889B2F0053A648 /* RepoWidget */,
+				B454EFFA2D889C9A0053A648 /* CompactRepoWidget */,
 			);
-			name = RepoWidgetExtension;
+			name = CompactRepoWidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = RepoWidgetExtension;
-			productReference = B454EFCB2D889B2F0053A648 /* RepoWidgetExtension.appex */;
+			productName = CompactRepoWidgetExtension;
+			productReference = B454EFF72D889C9A0053A648 /* CompactRepoWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -179,7 +179,7 @@
 					B454EF742D8897AF0053A648 = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					B454EFCA2D889B2F0053A648 = {
+					B454EFF62D889C9A0053A648 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -199,7 +199,7 @@
 			projectRoot = "";
 			targets = (
 				B454EF742D8897AF0053A648 /* RepoWatcher */,
-				B454EFCA2D889B2F0053A648 /* RepoWidgetExtension */,
+				B454EFF62D889C9A0053A648 /* CompactRepoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -212,7 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B454EFC92D889B2F0053A648 /* Resources */ = {
+		B454EFF52D889C9A0053A648 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -229,7 +229,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B454EFC72D889B2F0053A648 /* Sources */ = {
+		B454EFF32D889C9A0053A648 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,10 +239,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B454EFDA2D889B310053A648 /* PBXTargetDependency */ = {
+		B454F0032D889C9B0053A648 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B454EFCA2D889B2F0053A648 /* RepoWidgetExtension */;
-			targetProxy = B454EFD92D889B310053A648 /* PBXContainerItemProxy */;
+			target = B454EFF62D889C9A0053A648 /* CompactRepoWidgetExtension */;
+			targetProxy = B454F0022D889C9B0053A648 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -439,7 +439,7 @@
 			};
 			name = Release;
 		};
-		B454EFDD2D889B310053A648 /* Debug */ = {
+		B454F0072D889C9B0053A648 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -448,8 +448,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YZDJM5F99;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RepoWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RepoWidget;
+				INFOPLIST_FILE = CompactRepoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CompactRepoWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -458,7 +458,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.unkn0wny3t-ios.RepoWatcher.RepoWidget";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.unkn0wny3t-ios.RepoWatcher.CompactRepoWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -468,7 +468,7 @@
 			};
 			name = Debug;
 		};
-		B454EFDE2D889B310053A648 /* Release */ = {
+		B454F0082D889C9B0053A648 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -477,8 +477,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YZDJM5F99;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RepoWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RepoWidget;
+				INFOPLIST_FILE = CompactRepoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CompactRepoWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -487,7 +487,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.unkn0wny3t-ios.RepoWatcher.RepoWidget";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.unkn0wny3t-ios.RepoWatcher.CompactRepoWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -519,11 +519,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B454EFE02D889B310053A648 /* Build configuration list for PBXNativeTarget "RepoWidgetExtension" */ = {
+		B454F0062D889C9B0053A648 /* Build configuration list for PBXNativeTarget "CompactRepoWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B454EFDD2D889B310053A648 /* Debug */,
-				B454EFDE2D889B310053A648 /* Release */,
+				B454F0072D889C9B0053A648 /* Debug */,
+				B454F0082D889C9B0053A648 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
