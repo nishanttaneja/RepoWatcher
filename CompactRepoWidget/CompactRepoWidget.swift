@@ -8,7 +8,7 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
+struct CompactRepoProvider: TimelineProvider {
     func placeholder(in context: Context) -> CompactRepoEntry {
         CompactRepoEntry(date: Date(), emoji: "😀")
     }
@@ -44,7 +44,7 @@ struct CompactRepoEntry: TimelineEntry {
 }
 
 struct CompactRepoWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: CompactRepoProvider.Entry
 
     var body: some View {
         VStack {
@@ -61,7 +61,7 @@ struct CompactRepoWidget: Widget {
     let kind: String = "CompactRepoWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: CompactRepoProvider()) { entry in
             if #available(iOS 17.0, *) {
                 CompactRepoWidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
