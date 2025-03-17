@@ -34,7 +34,7 @@ fileprivate struct RepoDetailsProvider: TimelineProvider {
     }
 }
 
-fileprivate struct RepoDetailsView: View {
+struct RepoDetailsView: View {
     private let details: RepoDetails
     
     init(_ details: RepoDetails) {

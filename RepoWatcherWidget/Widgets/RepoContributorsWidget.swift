@@ -50,7 +50,8 @@ fileprivate struct RepoContributorsView: View {
     
     var body: some View {
         VStack {
-            Text(details.title)
+            RepoDetailsView(details)        // Repo Details
+            Text(details.title)         // Contributors List View
         }
         .containerBackground(for: .widget) { }
     }
