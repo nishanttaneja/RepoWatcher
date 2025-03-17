@@ -49,7 +49,7 @@ fileprivate struct RepoContributorsView: View {
 }
 
 struct RepoContributorsWidget: Widget {
-    let kind = "RepoContributorsWidget"
+    private let kind = "RepoContributorsWidget"
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RepoContributorsProvider()) { entry in

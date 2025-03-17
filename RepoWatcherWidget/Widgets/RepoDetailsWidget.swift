@@ -8,15 +8,17 @@
 import SwiftUI
 import WidgetKit
 
-struct RepoDetailsEntry: TimelineEntry {
+fileprivate struct RepoDetailsEntry: TimelineEntry {
     let date: Date
 }
 
-extension RepoDetailsEntry {
+fileprivate extension RepoDetailsEntry {
     static let mockData = RepoDetailsEntry(date: .now)
 }
 
-struct RepoDetailsProvider: TimelineProvider {
+fileprivate struct RepoDetailsProvider: TimelineProvider {
+    typealias Entry = RepoDetailsEntry
+    
     func placeholder(in context: Context) -> RepoDetailsEntry {
         .mockData
     }
@@ -31,23 +33,27 @@ struct RepoDetailsProvider: TimelineProvider {
     }
 }
 
-struct RepoDetailsView: View {
-    let repoDetailsEntry: RepoDetailsEntry
+fileprivate struct RepoDetailsView: View {
+    private let entry: RepoDetailsEntry
+    
+    init(_ entry: RepoDetailsEntry) {
+        self.entry = entry
+    }
     
     var body: some View {
         VStack {
-            Text("\(repoDetailsEntry.date.formatted(date: .long, time: .complete))")
+            Text("\(entry.date.formatted(date: .long, time: .complete))")
         }
         .containerBackground(for: .widget) { }
     }
 }
 
 struct RepoDetailsWidget: Widget {
-    let kind = "RepoDetailsWidget"
+    private let kind = "RepoDetailsWidget"
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RepoDetailsProvider()) { entry in
-            RepoDetailsView(repoDetailsEntry: entry)
+            RepoDetailsView(entry)
         }
     }
 }
