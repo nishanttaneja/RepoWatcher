@@ -9,23 +9,23 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    func placeholder(in context: Context) -> CompactRepoEntry {
+        CompactRepoEntry(date: Date(), emoji: "😀")
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (CompactRepoEntry) -> ()) {
+        let entry = CompactRepoEntry(date: Date(), emoji: "😀")
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+        var entries: [CompactRepoEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = CompactRepoEntry(date: entryDate, emoji: "😀")
             entries.append(entry)
         }
 
@@ -38,7 +38,7 @@ struct Provider: TimelineProvider {
 //    }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct CompactRepoEntry: TimelineEntry {
     let date: Date
     let emoji: String
 }
@@ -79,6 +79,6 @@ struct CompactRepoWidget: Widget {
 #Preview(as: .systemSmall) {
     CompactRepoWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    CompactRepoEntry(date: .now, emoji: "😀")
+    CompactRepoEntry(date: .now, emoji: "🤩")
 }
