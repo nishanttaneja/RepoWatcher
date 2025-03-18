@@ -64,34 +64,37 @@ fileprivate struct RepoContributorsView: View {
             Rectangle()
                 .fill(.thinMaterial)
                 .frame(height: 1)
-            Spacer().frame(height: 8)
-            Text("Top Contributors")         // Contributors List View
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundStyle(.secondary)
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 8) {
-                ForEach(details.contributors) { contributor in
-                    HStack {
-                        HStack {        // Image and title
-                            Image(contentsOf: contributor.userImagePath, placeholderImage: .avatar)
-                                .resizable()
-                                .frame(width: 36, height: 36)
-                                .clipShape(Circle())
-                            VStack(alignment: .leading) {
-                                Text(contributor.username)
-                                    .font(.caption)
-                                    .minimumScaleFactor(0.8)
-                                    .lineLimit(1)
-                                Text("\(contributor.contributions)")
-                                    .font(.caption)
-                                    .fontWeight(.light)
-                                    .foregroundStyle(.secondary)
-                                    .minimumScaleFactor(0.7)
+            if details.contributors.count > .zero {
+                Spacer().frame(height: 8)
+                Text("Top Contributors")         // Contributors List View
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.secondary)
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 8) {
+                    ForEach(details.contributors) { contributor in
+                        HStack {
+                            HStack {        // Image and title
+                                Image(contentsOf: contributor.userImagePath, placeholderImage: .avatar)
+                                    .resizable()
+                                    .frame(width: 36, height: 36)
+                                    .clipShape(Circle())
+                                VStack(alignment: .leading) {
+                                    Text(contributor.username)
+                                        .font(.caption)
+                                        .minimumScaleFactor(0.8)
+                                        .lineLimit(1)
+                                    Text("\(contributor.contributions)")
+                                        .font(.caption)
+                                        .fontWeight(.light)
+                                        .foregroundStyle(.secondary)
+                                        .minimumScaleFactor(0.7)
+                                }
                             }
                         }
                     }
                 }
             }
+            Spacer()
         }
         .containerBackground(for: .widget) { }
     }

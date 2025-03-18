@@ -105,6 +105,7 @@ struct RepoDetailsView: View {
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
                     .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
+                    .frame(maxWidth: 108)
                 Text("days ago")
                     .font(.caption2)
                     .fontWeight(.light)
