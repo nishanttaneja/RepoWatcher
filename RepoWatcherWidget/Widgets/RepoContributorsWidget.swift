@@ -34,8 +34,21 @@ fileprivate struct RepoContributorsProvider: TimelineProvider {
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<RepoContributorEntry>) -> Void) {
-        let timeline: Timeline<RepoContributorEntry> = Timeline(entries: [.mockData], policy: .after(.now))
-        completion(timeline)
+        Task {
+            var repoDetails: RepoDetails
+            do {
+                let decodedRepoResponse = try await URLSession.shared.data(ofType: RepoDetailsDecodable.self, from: "https://api.github.com/repos/google/GoogleSignIn-iOS")
+                repoDetails = decodedRepoResponse.details ?? .mockData
+                let decodedContributorsResponse = try await URLSession.shared.data(ofType: [RepoContributorsDecodable].self, from: "https://api.github.com/repos/google/GoogleSignIn-iOS/contributors")
+                let decodedContributors = decodedContributorsResponse.sorted(by: { ($0.contributions ?? .zero) >= ($1.contributions ?? .zero) }).prefix(6).compactMap({ $0.contributor })
+                repoDetails.setContributors(decodedContributors)
+            } catch {
+                debugPrint(#function, error)
+                repoDetails = .mockData
+            }
+            let timeline: Timeline<RepoContributorEntry> = Timeline(entries: [RepoContributorEntry(date: .now, details: repoDetails)], policy: .never)
+            completion(timeline)
+        }
     }
 }
 
@@ -54,7 +67,7 @@ fileprivate struct RepoContributorsView: View {
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .foregroundStyle(.secondary)
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 16) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 8) {
                 ForEach(details.contributors) { contributor in
                     HStack {
                         HStack {        // Image and title
@@ -62,8 +75,9 @@ fileprivate struct RepoContributorsView: View {
                                 .frame(width: 36, height: 36)
                             VStack(alignment: .leading) {
                                 Text(contributor.username)
-                                    .font(.callout)
-                                    .minimumScaleFactor(0.7)
+                                    .font(.caption)
+                                    .minimumScaleFactor(0.8)
+                                    .lineLimit(1)
                                 Text("\(contributor.contributions)")
                                     .font(.caption)
                                     .fontWeight(.light)

@@ -29,8 +29,18 @@ fileprivate struct RepoDetailsProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<RepoDetailsEntry>) -> Void) {
-        let timeline: Timeline<RepoDetailsEntry> = Timeline(entries: [.mockData], policy: .after(.now))
-        completion(timeline)
+        Task {
+            let repoDetails: RepoDetails
+            do {
+                let decodedData = try await URLSession.shared.data(ofType: RepoDetailsDecodable.self, from: "https://api.github.com/repos/google/GoogleSignIn-iOS")
+                repoDetails = decodedData.details ?? .mockData
+            } catch {
+                debugPrint(#function, error)
+                repoDetails = .mockData
+            }
+            let timeline: Timeline<RepoDetailsEntry> = Timeline(entries: [RepoDetailsEntry(date: .now, details: repoDetails)], policy: .never)
+            completion(timeline)
+        }
     }
 }
 
@@ -48,16 +58,19 @@ struct RepoDetailsView: View {
                     Circle()
                         .frame(width: 48, height: 48)
                     Text(details.title)
-                        .font(.title)
+                        .font(.title2)
+                        .fontWeight(.medium)
                         .minimumScaleFactor(0.7)
-                        
                 }
                 Spacer().frame(height: 8)
-                Text(details.description)
-                    .font(.caption)
-                    .fontWeight(.light)
-                    .lineLimit(4)
-                Spacer().frame(height: 8)
+                if details.description.isEmpty == false {
+                    Text(details.description)
+                        .font(.caption)
+                        .fontWeight(.light)
+                        .lineLimit(4)
+                        .foregroundStyle(.secondary)
+                    Spacer().frame(height: 8)
+                }
                 HStack(spacing: 16) {        // Repo details: forks, watchers, issues
                     Label {
                         Text("\(details.watchers)")
@@ -85,9 +98,9 @@ struct RepoDetailsView: View {
                 }
             }
             Spacer()
-            VStack {        // Days since last activity
+            VStack(alignment: .center, spacing: -8) {        // Days since last activity
                 Text("\(details.daysSinceLastActivity)")
-                    .font(.system(size: 72, weight: .heavy))
+                    .font(.system(size: 64, weight: .bold))
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
                     .foregroundStyle(.green)

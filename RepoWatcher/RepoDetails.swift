@@ -18,7 +18,15 @@ struct RepoDetails {
     let watchers: Int
     let forks: Int
     let issues: Int
-    let contributors: [Contributor]
+    private(set) var contributors: [Contributor]
+    
+    mutating func setContributors(_ contributors: [Contributor]) {
+        self.contributors = contributors
+    }
+}
+
+extension RepoDetails {
+    static let mockData = RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [])
 }
 
 extension RepoDetails {
@@ -33,6 +41,7 @@ extension RepoDetails {
 extension RepoDetails {
     struct DetailsDecodableData: Decodable {
         let name: String?
+        let description: String?
         let owner: Owner?
         let hasIssues: Bool?
         let forks: Int?
@@ -66,7 +75,7 @@ extension RepoDetails.Contributor.ContributorDecodableData {
 extension RepoDetails.DetailsDecodableData {
     var details: RepoDetails? {
         guard let name, let avatarUrl = owner?.avatarUrl, let forks, let watchers, let openIssues, let daysSinceLastActivity = pushedAt?.numberOfDaysTillToday else { return nil }
-        return RepoDetails(ownerImagePath: avatarUrl, title: name, description: "No Description. This is a hardcoded text.", daysSinceLastActivity: daysSinceLastActivity, watchers: watchers, forks: forks, issues: openIssues, contributors: [])
+        return RepoDetails(ownerImagePath: avatarUrl, title: name, description: description ?? "No Description. This is a hardcoded text.", daysSinceLastActivity: daysSinceLastActivity, watchers: watchers, forks: forks, issues: openIssues, contributors: [])
     }
 }
 
