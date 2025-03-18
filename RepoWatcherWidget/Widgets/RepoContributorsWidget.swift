@@ -60,16 +60,20 @@ fileprivate struct RepoContributorsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             RepoDetailsView(details)        // Repo Details
-            Spacer().frame(height: 16)
+            Spacer().frame(height: 8)
+            Rectangle()
+                .fill(.thinMaterial)
+                .frame(height: 1)
+            Spacer().frame(height: 8)
             Text("Top Contributors")         // Contributors List View
-                .font(.subheadline)
-                .fontWeight(.bold)
+                .font(.caption)
+                .fontWeight(.semibold)
                 .foregroundStyle(.secondary)
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 8) {
                 ForEach(details.contributors) { contributor in
                     HStack {
                         HStack {        // Image and title
-                            Image(.avatar)
+                            Image(contentsOf: contributor.userImagePath, placeholderImage: .avatar)
                                 .resizable()
                                 .frame(width: 36, height: 36)
                                 .clipShape(Circle())

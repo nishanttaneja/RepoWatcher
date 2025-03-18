@@ -54,7 +54,7 @@ struct RepoDetailsView: View {
         HStack {        // Main content view
             VStack(alignment: .leading) {        // Left view: content excluding days since last activity
                 HStack {        // Image and title
-                    Image(.avatar)
+                    Image(contentsOf: details.ownerImagePath, placeholderImage: .avatar)
                         .resizable()
                         .frame(width: 48, height: 48)
                         .clipShape(Circle())
@@ -98,13 +98,13 @@ struct RepoDetailsView: View {
                     }
                 }
             }
-            Spacer()
+            Spacer(minLength: 8)
             VStack(alignment: .center, spacing: -8) {        // Days since last activity
                 Text("\(details.daysSinceLastActivity)")
                     .font(.system(size: 64, weight: .bold))
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
-                    .foregroundStyle(.green)
+                    .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
                 Text("days ago")
                     .font(.caption2)
                     .fontWeight(.light)

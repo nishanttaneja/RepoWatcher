@@ -47,8 +47,9 @@
 		B40309AF2D89701D0054B41F /* Exceptions for "RepoWatcher" folder in "RepoWatcherWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Extensions/Image+Ext.swift",
+				"Extensions/URLSession+Ext.swift",
 				RepoDetails.swift,
-				"URLSession+Ext.swift",
 			);
 			target = B454F0582D889E430053A648 /* RepoWatcherWidgetExtension */;
 		};
