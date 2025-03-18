@@ -54,8 +54,10 @@ struct RepoDetailsView: View {
         HStack {        // Main content view
             VStack(alignment: .leading) {        // Left view: content excluding days since last activity
                 HStack {        // Image and title
-                    Circle()
+                    Image(.avatar)
+                        .resizable()
                         .frame(width: 48, height: 48)
+                        .clipShape(Circle())
                     Text(details.title)
                         .font(.title2)
                         .fontWeight(.medium)

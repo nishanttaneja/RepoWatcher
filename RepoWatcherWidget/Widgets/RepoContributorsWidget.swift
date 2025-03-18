@@ -69,8 +69,10 @@ fileprivate struct RepoContributorsView: View {
                 ForEach(details.contributors) { contributor in
                     HStack {
                         HStack {        // Image and title
-                            Circle()
+                            Image(.avatar)
+                                .resizable()
                                 .frame(width: 36, height: 36)
+                                .clipShape(Circle())
                             VStack(alignment: .leading) {
                                 Text(contributor.username)
                                     .font(.caption)
