@@ -14,8 +14,8 @@ struct RepoDetailsEntry: TimelineEntry {
 }
 
 extension RepoDetailsEntry {
-    static let placeholderData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
-        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 6),
+    static let placeholderData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "GitHub Repository", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 7),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 5),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 4),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 3)
@@ -82,7 +82,6 @@ fileprivate struct RepoDetailsView: View {
                     Text(details.description)
                         .font(.caption)
                         .fontWeight(.light)
-                        .lineLimit(4)
                         .foregroundStyle(.secondary)
                         .contentTransition(.opacity)
                     Spacer().frame(height: 8)

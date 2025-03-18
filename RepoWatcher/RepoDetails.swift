@@ -26,7 +26,9 @@ struct RepoDetails {
 }
 
 extension RepoDetails {
-    static let mockData = RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [])
+    static let mockData = RepoDetails(ownerImagePath: "", title: "GitHub Repository", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 7),
+    ])
 }
 
 extension RepoDetails {
