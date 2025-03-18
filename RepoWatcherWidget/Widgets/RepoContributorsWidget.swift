@@ -14,11 +14,14 @@ fileprivate struct RepoContributorEntry: TimelineEntry {
 }
 
 fileprivate extension RepoContributorEntry {
-    static let mockData = RepoContributorEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
-        RepoDetails.Contributor(userImagePath: "", username: "C-1", contributions: 6),
-        RepoDetails.Contributor(userImagePath: "", username: "C-2", contributions: 5),
-        RepoDetails.Contributor(userImagePath: "", username: "C-3", contributions: 4),
-        RepoDetails.Contributor(userImagePath: "", username: "C-4", contributions: 3)
+    static let placeholderData = RepoContributorEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Repository", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 6),
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 5),
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 4),
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 3)
+    ]))
+    static let mockData = RepoContributorEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Real-Dicee", description: "An iOS Application using ARKit and SCNKit to display Dice in Real World.", daysSinceLastActivity: 1648, watchers: 2, forks: 0, issues: 0, contributors: [
+        RepoDetails.Contributor(userImagePath: "", username: "nishanttaneja", contributions: 10)
     ]))
 }
 
@@ -84,11 +87,13 @@ fileprivate struct RepoContributorsView: View {
                                         .minimumScaleFactor(0.8)
                                         .lineLimit(1)
                                         .widgetAccentable()
+                                        .contentTransition(.opacity)
                                     Text("\(contributor.contributions)")
                                         .font(.caption)
                                         .fontWeight(.light)
                                         .foregroundStyle(.secondary)
                                         .minimumScaleFactor(0.7)
+                                        .contentTransition(.numericText())
                                 }
                             }
                     }
@@ -116,5 +121,6 @@ struct RepoContributorsWidget: Widget {
 #Preview(as: .systemLarge, widget: {
     RepoContributorsWidget()
 }, timeline: {
+    RepoContributorEntry.placeholderData
     RepoContributorEntry.mockData
 })

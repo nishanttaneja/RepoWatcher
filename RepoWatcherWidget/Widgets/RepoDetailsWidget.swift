@@ -14,7 +14,8 @@ fileprivate struct RepoDetailsEntry: TimelineEntry {
 }
 
 fileprivate extension RepoDetailsEntry {
-    static let mockData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: []))
+    static let placeholderData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: []))
+    static let mockData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Real-Dicee", description: "An iOS Application using ARKit and SCNKit to display Dice in Real World.", daysSinceLastActivity: 1648, watchers: 2, forks: 0, issues: 0, contributors: []))
 }
 
 fileprivate struct RepoDetailsProvider: TimelineProvider {
@@ -59,11 +60,13 @@ struct RepoDetailsView: View {
                         .widgetAccentedRenderingMode(.desaturated)
                         .frame(width: 48, height: 48)
                         .clipShape(Circle())
+                        .contentTransition(.opacity)
                     Text(details.title)
                         .font(.title2)
                         .fontWeight(.medium)
                         .minimumScaleFactor(0.7)
                         .widgetAccentable()
+                        .contentTransition(.opacity)
                 }
                 Spacer().frame(height: 8)
                 if details.description.isEmpty == false {
@@ -72,12 +75,14 @@ struct RepoDetailsView: View {
                         .fontWeight(.light)
                         .lineLimit(4)
                         .foregroundStyle(.secondary)
+                        .contentTransition(.opacity)
                     Spacer().frame(height: 8)
                 }
                 HStack {        // Repo details: forks, watchers, issues
                     Label {
                         Text("\(details.watchers)")
                             .font(.caption)
+                            .contentTransition(.numericText())
                     } icon: {
                         Image(systemName: "star.fill")
                             .foregroundStyle(.green)
@@ -85,6 +90,7 @@ struct RepoDetailsView: View {
                     Label {
                         Text("\(details.forks)")
                             .font(.caption)
+                            .contentTransition(.numericText())
                     } icon: {
                         Image(systemName: "tuningfork")
                             .foregroundStyle(.green)
@@ -93,6 +99,7 @@ struct RepoDetailsView: View {
                         Label {
                             Text("\(details.issues)")
                                 .font(.caption)
+                                .contentTransition(.numericText())
                         } icon: {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundStyle(.green)
@@ -110,6 +117,7 @@ struct RepoDetailsView: View {
                     .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
                     .frame(maxWidth: 108)
                     .widgetAccentable()
+                    .contentTransition(.numericText())
                 Text("days ago")
                     .font(.caption2)
                     .fontWeight(.light)
@@ -136,5 +144,6 @@ struct RepoDetailsWidget: Widget {
 #Preview(as: .systemMedium, widget: {
     RepoDetailsWidget()
 }, timeline: {
+    RepoDetailsEntry.placeholderData
     RepoDetailsEntry.mockData
 })
