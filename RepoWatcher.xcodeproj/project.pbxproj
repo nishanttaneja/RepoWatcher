@@ -47,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B40E7A9A2D8A0E9300DA69E8 /* RepoWatcherWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RepoWatcherWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B454EF752D8897AF0053A648 /* RepoWatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoWatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B454EFCD2D889B2F0053A648 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B454EFCF2D889B2F0053A648 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -59,6 +60,7 @@
 			membershipExceptions = (
 				"Extensions/Image+Ext.swift",
 				"Extensions/URLSession+Ext.swift",
+				"Extensions/UserDefaults+Ext.swift",
 				RepoDetails.swift,
 			);
 			target = B454F0582D889E430053A648 /* RepoWatcherWidgetExtension */;
@@ -114,6 +116,7 @@
 		B454EF6C2D8897AF0053A648 = {
 			isa = PBXGroup;
 			children = (
+				B40E7A9A2D8A0E9300DA69E8 /* RepoWatcherWidgetExtension.entitlements */,
 				B454EF772D8897AF0053A648 /* RepoWatcher */,
 				B454F05C2D889E430053A648 /* RepoWatcherWidget */,
 				B454EFCC2D889B2F0053A648 /* Frameworks */,
@@ -467,6 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RepoWatcherWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YZDJM5F99;
@@ -496,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RepoWatcherWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YZDJM5F99;

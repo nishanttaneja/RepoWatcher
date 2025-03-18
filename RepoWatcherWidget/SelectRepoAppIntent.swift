@@ -18,7 +18,7 @@ struct SelectRepoAppIntent: AppIntent, WidgetConfigurationIntent {
         typealias Result = [String]
         
         func results() async throws -> [String] {
-            ["sallen0400/swift-news"]
+            UserDefaults.shared?.repositories ?? [URLSession.defaultRepository]
         }
         
         func defaultResult() async -> String? {
