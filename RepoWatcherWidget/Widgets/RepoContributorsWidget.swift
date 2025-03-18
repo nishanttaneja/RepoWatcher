@@ -75,6 +75,7 @@ fileprivate struct RepoContributorsView: View {
                             HStack {        // Image and title
                                 Image(contentsOf: contributor.userImagePath, placeholderImage: .avatar)
                                     .resizable()
+                                    .widgetAccentedRenderingMode(.desaturated)
                                     .frame(width: 36, height: 36)
                                     .clipShape(Circle())
                                 VStack(alignment: .leading) {
@@ -82,6 +83,7 @@ fileprivate struct RepoContributorsView: View {
                                         .font(.caption)
                                         .minimumScaleFactor(0.8)
                                         .lineLimit(1)
+                                        .widgetAccentable()
                                     Text("\(contributor.contributions)")
                                         .font(.caption)
                                         .fontWeight(.light)

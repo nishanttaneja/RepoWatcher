@@ -56,12 +56,14 @@ struct RepoDetailsView: View {
                 HStack {        // Image and title
                     Image(contentsOf: details.ownerImagePath, placeholderImage: .avatar)
                         .resizable()
+                        .widgetAccentedRenderingMode(.desaturated)
                         .frame(width: 48, height: 48)
                         .clipShape(Circle())
                     Text(details.title)
                         .font(.title2)
                         .fontWeight(.medium)
                         .minimumScaleFactor(0.7)
+                        .widgetAccentable()
                 }
                 Spacer().frame(height: 8)
                 if details.description.isEmpty == false {
@@ -97,6 +99,7 @@ struct RepoDetailsView: View {
                         }
                     }
                 }
+                .widgetAccentable()
             }
             Spacer(minLength: 8)
             VStack(alignment: .center, spacing: -8) {        // Days since last activity
@@ -106,6 +109,7 @@ struct RepoDetailsView: View {
                     .lineLimit(1)
                     .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
                     .frame(maxWidth: 108)
+                    .widgetAccentable()
                 Text("days ago")
                     .font(.caption2)
                     .fontWeight(.light)
