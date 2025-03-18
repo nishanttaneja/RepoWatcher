@@ -85,6 +85,7 @@ fileprivate struct RepoContributorsView: View {
                                 Text("\(contributor.contributions)")
                                     .font(.caption)
                                     .fontWeight(.light)
+                                    .foregroundStyle(.secondary)
                                     .minimumScaleFactor(0.7)
                             }
                         }
