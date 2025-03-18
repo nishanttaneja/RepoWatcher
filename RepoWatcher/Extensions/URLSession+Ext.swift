@@ -8,12 +8,14 @@
 import Foundation
 
 extension URLSession {
-    private static let baseUrlString = "https://api.github.com/repos/nishanttaneja/Real-Dicee"
-    static func getRepoDetails() async throws -> RepoDetails? {
-        try await shared.data(ofType: RepoDetailsDecodable.self, from: baseUrlString).details
+    private static let baseUrlString = "https://api.github.com/repos/"
+    static let defaultRepository = "nishanttaneja/Real-Dicee"
+    
+    static func getRepoDetails(for repo: String) async throws -> RepoDetails? {
+        try await shared.data(ofType: RepoDetailsDecodable.self, from: baseUrlString + repo).details
     }
-    static func getRepoContributors() async throws -> [RepoDetails.Contributor] {
-        try await shared.data(ofType: [RepoContributorsDecodable].self, from: baseUrlString + "/contributors").sorted(by: { ($0.contributions ?? .zero) >= ($1.contributions ?? .zero) }).prefix(6).compactMap({ $0.contributor })
+    static func getRepoContributors(for repo: String) async throws -> [RepoDetails.Contributor] {
+        try await shared.data(ofType: [RepoContributorsDecodable].self, from: baseUrlString + repo + "/contributors").sorted(by: { ($0.contributions ?? .zero) >= ($1.contributions ?? .zero) }).prefix(6).compactMap({ $0.contributor })
     }
 }
 

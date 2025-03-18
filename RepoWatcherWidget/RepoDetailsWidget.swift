@@ -8,12 +8,12 @@
 import SwiftUI
 import WidgetKit
 
-fileprivate struct RepoDetailsEntry: TimelineEntry {
+struct RepoDetailsEntry: TimelineEntry {
     let date: Date
     let details: RepoDetails
 }
 
-fileprivate extension RepoDetailsEntry {
+extension RepoDetailsEntry {
     static let placeholderData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Hello, GitHub", description: "There's no description available for this repository.", daysSinceLastActivity: 5, watchers: 9, forks: 3, issues: 2, contributors: [
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 6),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 5),
@@ -25,31 +25,31 @@ fileprivate extension RepoDetailsEntry {
     ]))
 }
 
-fileprivate struct RepoDetailsProvider: TimelineProvider {
+fileprivate struct RepoDetailsProvider: AppIntentTimelineProvider {
     typealias Entry = RepoDetailsEntry
+    typealias Intent = SelectRepoAppIntent
     
     func placeholder(in context: Context) -> RepoDetailsEntry {
         .mockData
     }
     
-    func getSnapshot(in context: Context, completion: @escaping @Sendable (RepoDetailsEntry) -> Void) {
-        completion(.mockData)
+    func snapshot(for configuration: SelectRepoAppIntent, in context: Context) async -> RepoDetailsEntry {
+        .mockData
     }
-
-    func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<RepoDetailsEntry>) -> Void) {
-        Task {
-            var repoDetails: RepoDetails
-            do {
-                repoDetails = try await URLSession.getRepoDetails() ?? .mockData
-                let contributors = try await URLSession.getRepoContributors()
-                repoDetails.setContributors(contributors)
-            } catch {
-                debugPrint(#function, error)
-                repoDetails = .mockData
-            }
-            let timeline: Timeline<RepoDetailsEntry> = Timeline(entries: [RepoDetailsEntry(date: .now, details: repoDetails)], policy: .never)
-            completion(timeline)
+    
+    func timeline(for configuration: SelectRepoAppIntent, in context: Context) async -> Timeline<RepoDetailsEntry> {
+        var repoDetails: RepoDetails
+        do {
+            let repository = configuration.repository ?? URLSession.defaultRepository
+            repoDetails = try await URLSession.getRepoDetails(for: repository) ?? .mockData
+            let contributors = try await URLSession.getRepoContributors(for: repository)
+            repoDetails.setContributors(contributors)
+        } catch {
+            debugPrint(#function, error)
+            repoDetails = .mockData
         }
+        let timeline: Timeline<RepoDetailsEntry> = Timeline(entries: [RepoDetailsEntry(date: .now, details: repoDetails)], policy: .never)
+        return timeline
     }
 }
 
@@ -214,7 +214,7 @@ fileprivate struct RepoDetailsWidget: Widget {
     private let kind = "RepoDetailsWidget"
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: RepoDetailsProvider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: SelectRepoAppIntent.self, provider: RepoDetailsProvider()) { entry in
             RepoDetailsWidgetView(entry.details)
         }
         .configurationDisplayName("Repo Watcher")
