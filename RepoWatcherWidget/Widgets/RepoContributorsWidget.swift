@@ -72,7 +72,6 @@ fileprivate struct RepoContributorsView: View {
                     .foregroundStyle(.secondary)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 8) {
                     ForEach(details.contributors) { contributor in
-                        HStack {
                             HStack {        // Image and title
                                 Image(contentsOf: contributor.userImagePath, placeholderImage: .avatar)
                                     .resizable()
@@ -90,7 +89,6 @@ fileprivate struct RepoContributorsView: View {
                                         .minimumScaleFactor(0.7)
                                 }
                             }
-                        }
                     }
                 }
             }
