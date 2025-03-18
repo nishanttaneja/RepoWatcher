@@ -32,8 +32,7 @@ fileprivate struct RepoDetailsProvider: TimelineProvider {
         Task {
             let repoDetails: RepoDetails
             do {
-                let decodedData = try await URLSession.shared.data(ofType: RepoDetailsDecodable.self, from: "https://api.github.com/repos/google/GoogleSignIn-iOS")
-                repoDetails = decodedData.details ?? .mockData
+                repoDetails = try await URLSession.getRepoDetails() ?? .mockData
             } catch {
                 debugPrint(#function, error)
                 repoDetails = .mockData
@@ -71,7 +70,7 @@ struct RepoDetailsView: View {
                         .foregroundStyle(.secondary)
                     Spacer().frame(height: 8)
                 }
-                HStack(spacing: 16) {        // Repo details: forks, watchers, issues
+                HStack {        // Repo details: forks, watchers, issues
                     Label {
                         Text("\(details.watchers)")
                             .font(.caption)

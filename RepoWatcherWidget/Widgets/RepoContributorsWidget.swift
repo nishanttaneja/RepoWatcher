@@ -37,11 +37,9 @@ fileprivate struct RepoContributorsProvider: TimelineProvider {
         Task {
             var repoDetails: RepoDetails
             do {
-                let decodedRepoResponse = try await URLSession.shared.data(ofType: RepoDetailsDecodable.self, from: "https://api.github.com/repos/google/GoogleSignIn-iOS")
-                repoDetails = decodedRepoResponse.details ?? .mockData
-                let decodedContributorsResponse = try await URLSession.shared.data(ofType: [RepoContributorsDecodable].self, from: "https://api.github.com/repos/google/GoogleSignIn-iOS/contributors")
-                let decodedContributors = decodedContributorsResponse.sorted(by: { ($0.contributions ?? .zero) >= ($1.contributions ?? .zero) }).prefix(6).compactMap({ $0.contributor })
-                repoDetails.setContributors(decodedContributors)
+                repoDetails = try await URLSession.getRepoDetails() ?? .mockData
+                let repoContributors = try await URLSession.getRepoContributors()
+                repoDetails.setContributors(repoContributors)
             } catch {
                 debugPrint(#function, error)
                 repoDetails = .mockData
