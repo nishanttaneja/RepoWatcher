@@ -50,88 +50,103 @@ fileprivate struct RepoDetailsProvider: AppIntentTimelineProvider {
             debugPrint(#function, error)
             repoDetails = .mockData
         }
-        let timeline: Timeline<RepoDetailsEntry> = Timeline(entries: [RepoDetailsEntry(date: .now, details: repoDetails)], policy: .never)
+        let nextUpdateDate = Date.now.addingTimeInterval(43200)
+        let timeline: Timeline<RepoDetailsEntry> = Timeline(entries: [RepoDetailsEntry(date: .now, details: repoDetails)], policy: .after(nextUpdateDate))
         return timeline
     }
 }
 
 fileprivate struct RepoDetailsView: View {
     private let details: RepoDetails
+    private let entry: RepoDetailsEntry
     
-    init(_ details: RepoDetails) {
-        self.details = details
+    init(_ entry: RepoDetailsEntry) {
+        self.entry = entry
+        details = entry.details
     }
     
     var body: some View {
-        HStack {        // Main content view
-            VStack(alignment: .leading) {        // Left view: content excluding days since last activity
-                HStack {        // Image and title
-                    Image(contentsOf: details.ownerImagePath, placeholderImage: .avatar)
-                        .resizable()
-                        .widgetAccentedRenderingMode(.desaturated)
-                        .frame(width: 48, height: 48)
-                        .clipShape(Circle())
-                        .contentTransition(.opacity)
-                    Text(details.title)
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .minimumScaleFactor(0.7)
-                        .widgetAccentable()
-                        .contentTransition(.opacity)
-                }
-                Spacer().frame(height: 12)
-                if details.description.isEmpty == false {
-                    Text(details.description)
-                        .font(.caption)
-                        .fontWeight(.light)
+        ZStack {
+            VStack {
+                HStack {
+                    Spacer()
+                    Text("updated on \(entry.date.formatted(date: .numeric, time: .shortened))")
+                        .font(.caption2)
                         .foregroundStyle(.secondary)
                         .contentTransition(.opacity)
-                    Spacer().frame(height: 12)
                 }
-                HStack {        // Repo details: forks, watchers, issues
-                    Label {
-                        Text("\(details.watchers)")
-                            .font(.caption)
-                            .contentTransition(.numericText())
-                    } icon: {
-                        Image(systemName: "star.fill")
-                            .foregroundStyle(.green)
+                Spacer()
+            }
+            HStack {        // Main content view
+                VStack(alignment: .leading) {        // Left view: content excluding days since last activity
+                    HStack {        // Image and title
+                        Image(contentsOf: details.ownerImagePath, placeholderImage: .avatar)
+                            .resizable()
+                            .widgetAccentedRenderingMode(.desaturated)
+                            .frame(width: 48, height: 48)
+                            .clipShape(Circle())
+                            .contentTransition(.opacity)
+                        Text(details.title)
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .minimumScaleFactor(0.7)
+                            .widgetAccentable()
+                            .contentTransition(.opacity)
                     }
-                    Label {
-                        Text("\(details.forks)")
+                    Spacer().frame(height: 12)
+                    if details.description.isEmpty == false {
+                        Text(details.description)
                             .font(.caption)
-                            .contentTransition(.numericText())
-                    } icon: {
-                        Image(systemName: "tuningfork")
-                            .foregroundStyle(.green)
+                            .fontWeight(.light)
+                            .foregroundStyle(.secondary)
+                            .contentTransition(.opacity)
+                        Spacer().frame(height: 12)
                     }
-                    if details.issues > .zero {
+                    HStack {        // Repo details: forks, watchers, issues
                         Label {
-                            Text("\(details.issues)")
+                            Text("\(details.watchers)")
                                 .font(.caption)
                                 .contentTransition(.numericText())
                         } icon: {
-                            Image(systemName: "exclamationmark.triangle.fill")
+                            Image(systemName: "star.fill")
                                 .foregroundStyle(.green)
                         }
+                        Label {
+                            Text("\(details.forks)")
+                                .font(.caption)
+                                .contentTransition(.numericText())
+                        } icon: {
+                            Image(systemName: "tuningfork")
+                                .foregroundStyle(.green)
+                        }
+                        if details.issues > .zero {
+                            Label {
+                                Text("\(details.issues)")
+                                    .font(.caption)
+                                    .contentTransition(.numericText())
+                            } icon: {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundStyle(.green)
+                            }
+                        }
                     }
-                }
-                .widgetAccentable()
-            }
-            Spacer(minLength: 8)
-            VStack(alignment: .center, spacing: -8) {        // Days since last activity
-                Text("\(details.daysSinceLastActivity)")
-                    .font(.system(size: 64, weight: .bold))
-                    .minimumScaleFactor(0.6)
-                    .lineLimit(1)
-                    .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
-                    .frame(maxWidth: 108)
                     .widgetAccentable()
-                    .contentTransition(.numericText())
-                Text("days ago")
-                    .font(.caption2)
-                    .fontWeight(.light)
-                    .foregroundStyle(.secondary)
+                }
+                Spacer(minLength: 8)
+                VStack(alignment: .center, spacing: -8) {        // Days since last activity
+                    Text("\(details.daysSinceLastActivity)")
+                        .font(.system(size: 64, weight: .bold))
+                        .minimumScaleFactor(0.6)
+                        .lineLimit(1)
+                        .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
+                        .frame(maxWidth: 108)
+                        .widgetAccentable()
+                        .contentTransition(.numericText())
+                    Text("days ago")
+                        .font(.caption2)
+                        .fontWeight(.light)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .containerBackground(for: .widget) { }
@@ -140,14 +155,16 @@ fileprivate struct RepoDetailsView: View {
 
 fileprivate struct RepoContributorsView: View {
     private let details: RepoDetails
+    private let entry: RepoDetailsEntry
     
-    init(_ details: RepoDetails) {
-        self.details = details
+    init(_ entry: RepoDetailsEntry) {
+        self.entry = entry
+        details = entry.details
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            RepoDetailsView(details)        // Repo Details
+            RepoDetailsView(entry)        // Repo Details
             Spacer().frame(height: 12)
             Rectangle()
                 .fill(.thinMaterial)
@@ -195,18 +212,18 @@ fileprivate struct RepoContributorsView: View {
 
 fileprivate struct RepoDetailsWidgetView: View {
     @Environment(\.widgetFamily) private var widgetFamily
-    private let details: RepoDetails
+    private let entry: RepoDetailsEntry
     
-    init(_ details: RepoDetails) {
-        self.details = details
+    init(_ entry: RepoDetailsEntry) {
+        self.entry = entry
     }
     
     var body: some View {
         switch widgetFamily {
         case .systemMedium:
-            RepoDetailsView(details)
+            RepoDetailsView(entry)
         case .systemLarge:
-            RepoContributorsView(details)
+            RepoContributorsView(entry)
         default:
             Text("unsupported widget family")
         }
@@ -219,7 +236,7 @@ fileprivate struct RepoDetailsWidget: Widget {
     
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: SelectRepoAppIntent.self, provider: RepoDetailsProvider()) { entry in
-            RepoDetailsWidgetView(entry.details)
+            RepoDetailsWidgetView(entry)
         }
         .configurationDisplayName("Repo Watcher")
         .description("Keep an eye on a GitHub repository.")
