@@ -66,87 +66,74 @@ fileprivate struct RepoDetailsView: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    Text("updated on \(entry.date.formatted(date: .numeric, time: .shortened))")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+        HStack {        // Main content view
+            VStack(alignment: .leading) {        // Left view: content excluding days since last activity
+                HStack {        // Image and title
+                    Image(contentsOf: details.ownerImagePath, placeholderImage: .avatar)
+                        .resizable()
+                        .widgetAccentedRenderingMode(.desaturated)
+                        .frame(width: 48, height: 48)
+                        .clipShape(Circle())
+                        .contentTransition(.opacity)
+                    Text(details.title)
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .minimumScaleFactor(0.7)
+                        .widgetAccentable()
                         .contentTransition(.opacity)
                 }
-                Spacer()
-            }
-            HStack {        // Main content view
-                VStack(alignment: .leading) {        // Left view: content excluding days since last activity
-                    HStack {        // Image and title
-                        Image(contentsOf: details.ownerImagePath, placeholderImage: .avatar)
-                            .resizable()
-                            .widgetAccentedRenderingMode(.desaturated)
-                            .frame(width: 48, height: 48)
-                            .clipShape(Circle())
-                            .contentTransition(.opacity)
-                        Text(details.title)
-                            .font(.title2)
-                            .fontWeight(.medium)
-                            .minimumScaleFactor(0.7)
-                            .widgetAccentable()
-                            .contentTransition(.opacity)
-                    }
-                    Spacer().frame(height: 12)
-                    if details.description.isEmpty == false {
-                        Text(details.description)
-                            .font(.caption)
-                            .fontWeight(.light)
-                            .foregroundStyle(.secondary)
-                            .contentTransition(.opacity)
-                        Spacer().frame(height: 12)
-                    }
-                    HStack {        // Repo details: forks, watchers, issues
-                        Label {
-                            Text("\(details.watchers)")
-                                .font(.caption)
-                                .contentTransition(.numericText())
-                        } icon: {
-                            Image(systemName: "star.fill")
-                                .foregroundStyle(.green)
-                        }
-                        Label {
-                            Text("\(details.forks)")
-                                .font(.caption)
-                                .contentTransition(.numericText())
-                        } icon: {
-                            Image(systemName: "tuningfork")
-                                .foregroundStyle(.green)
-                        }
-                        if details.issues > .zero {
-                            Label {
-                                Text("\(details.issues)")
-                                    .font(.caption)
-                                    .contentTransition(.numericText())
-                            } icon: {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundStyle(.green)
-                            }
-                        }
-                    }
-                    .widgetAccentable()
-                }
-                Spacer(minLength: 8)
-                VStack(alignment: .center, spacing: -8) {        // Days since last activity
-                    Text("\(details.daysSinceLastActivity)")
-                        .font(.system(size: 64, weight: .bold))
-                        .minimumScaleFactor(0.6)
-                        .lineLimit(1)
-                        .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
-                        .frame(maxWidth: 108)
-                        .widgetAccentable()
-                        .contentTransition(.numericText())
-                    Text("days ago")
-                        .font(.caption2)
+                Spacer().frame(height: 6)
+                if details.description.isEmpty == false {
+                    Text(details.description)
+                        .font(.caption)
                         .fontWeight(.light)
                         .foregroundStyle(.secondary)
+                        .contentTransition(.opacity)
+                    Spacer().frame(height: 6)
                 }
+                HStack {        // Repo details: forks, watchers, issues
+                    Label {
+                        Text("\(details.watchers)")
+                            .font(.caption)
+                            .contentTransition(.numericText())
+                    } icon: {
+                        Image(systemName: "star.fill")
+                            .foregroundStyle(.green)
+                    }
+                    Label {
+                        Text("\(details.forks)")
+                            .font(.caption)
+                            .contentTransition(.numericText())
+                    } icon: {
+                        Image(systemName: "tuningfork")
+                            .foregroundStyle(.green)
+                    }
+                    if details.issues > .zero {
+                        Label {
+                            Text("\(details.issues)")
+                                .font(.caption)
+                                .contentTransition(.numericText())
+                        } icon: {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(.green)
+                        }
+                    }
+                }
+                .widgetAccentable()
+            }
+            VStack(alignment: .center, spacing: -8) {        // Days since last activity
+                Text("\(details.daysSinceLastActivity)")
+                    .font(.system(size: 64, weight: .bold))
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                    .foregroundStyle(details.daysSinceLastActivity > 50 ? .red : .green)
+                    .frame(maxWidth: 108)
+                    .widgetAccentable()
+                    .contentTransition(.numericText())
+                Text("days ago")
+                    .font(.caption2)
+                    .fontWeight(.light)
+                    .foregroundStyle(.secondary)
             }
         }
         .containerBackground(for: .widget) { }
@@ -175,7 +162,7 @@ fileprivate struct RepoContributorsView: View {
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundStyle(.secondary)
-                Spacer().frame(height: 16)
+                Spacer().frame(height: 12)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 16) {
                     ForEach(details.contributors) { contributor in
                             HStack {        // Image and title
@@ -219,14 +206,22 @@ fileprivate struct RepoDetailsWidgetView: View {
     }
     
     var body: some View {
-        switch widgetFamily {
-        case .systemMedium:
-            RepoDetailsView(entry)
-        case .systemLarge:
-            RepoContributorsView(entry)
-        default:
-            Text("unsupported widget family")
+        VStack(spacing: 16) {
+            switch widgetFamily {
+            case .systemMedium:
+                RepoDetailsView(entry)
+            case .systemLarge:
+                RepoContributorsView(entry)
+            default:
+                Text("unsupported widget family")
+            }
+            Text("updated on \(entry.date.formatted(date: .numeric, time: .shortened))")
+                .font(.caption2)
+                .fontWeight(.thin)
+                .foregroundStyle(.secondary)
+                .contentTransition(.opacity)
         }
+        .padding(.bottom, -12)
     }
 }
 
