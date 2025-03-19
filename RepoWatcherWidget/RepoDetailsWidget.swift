@@ -18,6 +18,8 @@ extension RepoDetailsEntry {
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 7),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 5),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 4),
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 4),
+        RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 4),
         RepoDetails.Contributor(userImagePath: "", username: "username", contributions: 3)
     ]))
     static let mockData = RepoDetailsEntry(date: .now, details: RepoDetails(ownerImagePath: "", title: "Real-Dicee", description: "An iOS Application using ARKit and SCNKit to display Dice in Real World.", daysSinceLastActivity: 1648, watchers: 2, forks: 0, issues: 0, contributors: [
@@ -77,14 +79,14 @@ fileprivate struct RepoDetailsView: View {
                         .widgetAccentable()
                         .contentTransition(.opacity)
                 }
-                Spacer().frame(height: 8)
+                Spacer().frame(height: 12)
                 if details.description.isEmpty == false {
                     Text(details.description)
                         .font(.caption)
                         .fontWeight(.light)
                         .foregroundStyle(.secondary)
                         .contentTransition(.opacity)
-                    Spacer().frame(height: 8)
+                    Spacer().frame(height: 12)
                 }
                 HStack {        // Repo details: forks, watchers, issues
                     Label {
@@ -146,17 +148,18 @@ fileprivate struct RepoContributorsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             RepoDetailsView(details)        // Repo Details
-            Spacer().frame(height: 8)
+            Spacer().frame(height: 12)
             Rectangle()
                 .fill(.thinMaterial)
                 .frame(height: 1)
             if details.contributors.count > .zero {
-                Spacer().frame(height: 8)
+                Spacer().frame(height: 12)
                 Text("Top Contributors")         // Contributors List View
-                    .font(.caption)
+                    .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundStyle(.secondary)
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 8) {
+                Spacer().frame(height: 16)
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), alignment: .leading, spacing: 16) {
                     ForEach(details.contributors) { contributor in
                             HStack {        // Image and title
                                 Image(contentsOf: contributor.userImagePath, placeholderImage: .avatar)
@@ -182,7 +185,9 @@ fileprivate struct RepoContributorsView: View {
                     }
                 }
             }
-            Spacer()
+            if details.contributors.count < 5 {
+                Spacer()
+            }
         }
         .containerBackground(for: .widget) { }
     }
